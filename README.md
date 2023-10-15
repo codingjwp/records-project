@@ -4,11 +4,11 @@
 
 ## 폴더 구조
 
-📂 src
-┗ 📂 app
-  ┗ 📂 list
-  ┗ 📂 records
-┗ 📂 component
+📂 src  
+┗ 📂 app  
+  ┗ 📂 list  
+  ┗ 📂 records  
+┗ 📂 component  
 
 ## 서버 및 클라이언트 구성 요소를 언제 사용합니까?
 
@@ -40,12 +40,7 @@
 
 > 상태 관리 라이브러리의 선택은 프로젝트의 복잡성, 확장성, 요구사항, 개인 선호도 차이에 따라 결정됩니다.
 
-## Next.js에 React-query 사용
-
-### 키워드 : prefetch, hydrate, optimistic, update
-
 ## 도움 받은 사이트
 >
-> [Next.js13 react-query](https://velog.io/@baby_dev/Next13-with-react-query)  
 > [Next.js13 App Router state management](https://medium.com/@ahmedenany9812/state-management-in-next-js-13-app-router-3892a56261ce)  
 > [Next.js13 구성 패턴](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns)
