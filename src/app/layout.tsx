@@ -1,5 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
+import Headers from '@/components/Headers';
 
 export const metadata: Metadata = {
   title: 'Git Storage File',
@@ -13,7 +14,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div>
+          <Headers />
+          {children}
+        </div>
+      </body>
     </html>
   )
 }
