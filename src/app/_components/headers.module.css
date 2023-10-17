@@ -62,7 +62,7 @@
 .view_menu span {
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%) rotateZ(0deg);
   width: 3rem;
   height: 0.2rem;
   background-color: var(--font-color);
@@ -74,22 +74,55 @@
   margin-top: 1rem;
 }
 
+.view_menu.view::before,
+.view_menu.view::after {
+  margin-top: 0;
+  will-change: transform;
+  transition-property: transform;
+  transition-duration: 150ms;
+  transition-timing-function: ease-out;
+}
+.view_menu.view span {
+  width: 0;
+  height: 0;
+}
+
+.view_menu.view::before {
+  transform: translate(-50%, -50%) rotateZ(-45deg);
+}
+
+.view_menu.view::after {
+  transform: translate(-50%, -50%) rotateZ(45deg);
+}
+
 .navigator {
   position: absolute;
   top: 7.1rem;
   width: 100%;
-  height: 3rem;
+  height: 0;
+  overflow: hidden;
+  will-change: height;
+  transition-property: height;
+  transition-timing-function: ease-out;
+  transition-duration: 300ms;
+}
+
+.navigator.open {
+  height: 8rem;
 }
 
 .navigator ul {
   background-color: var(--root-bgcolor);
+  
 }
 .navigator li {
+  vertical-align: middle;
   padding: 1rem 1rem 1rem 2rem;
-  font-size: 1.4rem;
+  font-size: 1.44rem;
   font-weight: 600;
   border-bottom: 0.1rem solid var(--main-500-bgcolor);
 }
 .navigator li a {
+  height: 100%;
   color: var(--font-color);
 }

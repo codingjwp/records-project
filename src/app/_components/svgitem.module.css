@@ -1,0 +1,29 @@
+@keyframes cube_rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  25% {
+    transform: rotateZ(25deg);
+  }
+  50% {
+    transform: rotateZ(0deg);
+  }
+  75% {
+    transform: rotateZ(-25deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+.bgcolor {
+  fill: var(--main-900-bgcolor);
+}
+
+.main_animation {
+  animation-name: cube_rotate;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 500ms;
+  animation-iteration-count: 2;
+}

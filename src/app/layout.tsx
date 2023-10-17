@@ -1,6 +1,6 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Headers from '@/components/Headers';
+import Headers from '@/app/_components/Headers';
 
 export const metadata: Metadata = {
   title: 'Git Storage File',

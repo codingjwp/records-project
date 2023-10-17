@@ -40,6 +40,10 @@
 
 > 상태 관리 라이브러리의 선택은 프로젝트의 복잡성, 확장성, 요구사항, 개인 선호도 차이에 따라 결정됩니다.
 
+
+## 에러 발생
+[](https://stackoverflow.com/questions/76903959/nextjs-typeerror-cannot-read-properties-of-null-reading-removechild-when)
+
 ## 도움 받은 사이트
 >
 > [Next.js13 App Router state management](https://medium.com/@ahmedenany9812/state-management-in-next-js-13-app-router-3892a56261ce)  

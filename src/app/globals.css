@@ -17,6 +17,10 @@ body {
   padding-top: 7.1rem;
 }
 
+button, a {
+  cursor: pointer;
+}
+
 button,
 input {
   appearance: none;
