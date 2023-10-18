@@ -16,7 +16,13 @@
   }
 }
 
-.bgcolor {
+.bg_root {
+  fill: var(--root-bgcolor);
+}
+.bg_font {
+  fill: var(--font-color);
+}
+.bg_main {
   fill: var(--main-900-bgcolor);
 }
 
