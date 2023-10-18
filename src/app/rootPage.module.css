@@ -16,3 +16,14 @@
 .inner .main_title {
   font-size: 3.6rem;  
 }
+
+.description {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.description .sub_text {
+  font-size: 1.6rem;
+  margin: 0 1rem;
+}
