@@ -25,5 +25,6 @@
 }
 .description .sub_text {
   font-size: 1.6rem;
+  font-weight: 600;
   margin: 0 1rem;
 }

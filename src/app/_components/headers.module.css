@@ -116,13 +116,13 @@
   
 }
 .navigator li {
-  vertical-align: middle;
-  padding: 1rem 1rem 1rem 2rem;
   font-size: 1.44rem;
   font-weight: 600;
   border-bottom: 0.1rem solid var(--main-500-bgcolor);
 }
 .navigator li a {
-  height: 100%;
+  display: block;
+  width: 100%;
+  padding: 1rem 0 1rem 2rem;
   color: var(--font-color);
 }
