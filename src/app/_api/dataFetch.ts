@@ -43,10 +43,11 @@ export const totalContributionsFetch = cache(async () => {
 })
 
 interface StorageInfo {
-  name: string
-  description: string
-  url: string
-  openGraphImageUrl: string
+  databaseId: number;
+  name: string;
+  description: string;
+  url: string;
+  openGraphImageUrl: string;
 }
 
 export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
@@ -62,6 +63,7 @@ export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
           pinnedItems(first: 10) {
             nodes {
               ... on Repository {
+                databaseId
                 name
                 description
                 url
