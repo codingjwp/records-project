@@ -2,30 +2,27 @@ import styles from './svgitem.module.css';
 
 type SVGID = "cube" | "commit" | "commit_30" | "storages";
 type FILL = "rt" | "ft" | "mn";
+type SVGSIZE = "sm" | "md" | "lr";
 interface SvgItemProps {
-  wd: number;
-  hi: number;
   id: SVGID;
   color: FILL;
+  size: SVGSIZE;
 }
 
-const SvgItem = ({id, wd, hi, color}: SvgItemProps) => {
-  const fillStyle = (color: FILL) => {
-    switch(color) {
-      case 'rt':
-        return styles.bg_root;
-      case 'ft':
-        return styles.bg_font;
-      case 'mn':
-        return styles.bg_main;
-      default :
-        return '';
-    }
+const SvgItem = ({ id, color, size }: SvgItemProps) => {
+  const sizeStyle = {
+    "sm": styles.sm,
+    "md": styles.md,
+    "lr": styles.lr,
   }
-  const bgStyle = fillStyle(color);
+  const fillStyle = {
+    'rt': styles.bg_root,
+    'ft': styles.bg_font,
+    'mn': styles.bg_main,
+  }
 
   return (
-    <svg width={wd} height={hi} className={[bgStyle, id === "cube" ? styles.main_animation : ""].join(" ")}>
+    <svg className={[fillStyle[color], sizeStyle[size], id === "cube" ? styles.main_animation : ""].join(" ")}>
       <use href={"svgs/iconsprite.svg#" + `${id}`} />
     </svg>
   )
