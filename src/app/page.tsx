@@ -7,6 +7,7 @@ async function totalContributionsFetch() {
   const year =  new Date(now.getFullYear(), 0, 1, 0, 0, 0).toISOString();
   const toDay = now.toISOString();
   const options = {
+    next: { revalidate: 60 },
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -28,9 +29,6 @@ async function totalContributionsFetch() {
           }
         }`,
     }),
-    next: {
-      revalidate: 60
-    }
   }
   const response = await fetch(`${process.env.GITHUB_API}`, options)
   if (!response.ok) throw new Error("fetch error response");

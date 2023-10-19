@@ -21,7 +21,7 @@ const Headers = () => {
         </button>
         <nav className={[styles.navigator, isOpen ? styles.open : ''].join(" ")}>
           <ul>
-            <li><Link href={"/"}>저장소</Link></li>
+            <li><Link href={"storages"}>저장소</Link></li>
             <li><Link href={"/"}>기록소</Link></li>
           </ul>
         </nav>
