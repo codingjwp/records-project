@@ -6,9 +6,9 @@
 
 📂 src  
 ┗ 📂 app  
-  ┗ 📂 list  
-  ┗ 📂 records  
-┗ 📂 component  
+&ensp;┗ 📂 _components  
+&ensp;┗ 📂_fonts  
+&ensp;┗ 📂 storages
 
 ## 서버 및 클라이언트 구성 요소를 언제 사용합니까?
 
@@ -40,15 +40,14 @@
 
 > 상태 관리 라이브러리의 선택은 프로젝트의 복잡성, 확장성, 요구사항, 개인 선호도 차이에 따라 결정됩니다.
 
-
 ## 에러 발생
+
 [](https://stackoverflow.com/questions/76903959/nextjs-typeerror-cannot-read-properties-of-null-reading-removechild-when)
 
 ## 도움 받은 사이트
 >
 > [Next.js13 App Router state management](https://medium.com/@ahmedenany9812/state-management-in-next-js-13-app-router-3892a56261ce)  
 > [Next.js13 구성 패턴](https://nextjs.org/docs/app/building-your-application/rendering/composition-patterns)
-
 
 ## 데이터 캐싱
 
@@ -61,6 +60,8 @@ fetch 요청은 다음 경우에 캐시되지 않습니다:
 - const dynamic = 'force-dynamic' 라우트 세그먼트 옵션이 사용된 경우: 이 옵션은 라우트가 동적으로 처리되도록 강제하므로, 해당 라우트의 요청은 캐시되지 않습니다.
 - fetchCache 라우트 세그먼트 옵션이 기본적으로 캐시를 건너뛰도록 설정된 경우: 이는 해당 라우트의 모든 요청이 캐시되지 않도록 지정합니다.
 - fetch 요청이 Authorization 또는 Cookie 헤더를 사용하고 컴포넌트 트리에서 그 위에 캐시되지 않은 요청이 있는 경우: 이는 보안상의 이유로 인해, 이러한 요청은 캐시되지 않습니다.
+
+> 출처 : [Route Segment Config](https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config)
 
 ### 캐싱이 되고 있지 않은 코드
 
@@ -95,6 +96,7 @@ fetch 요청은 다음 경우에 캐시되지 않습니다:
 > 출처 : [Opting out of Data Caching](https://nextjs.org/docs/app/building-your-application/data-fetching/fetching-caching-and-revalidating#opting-out-of-data-caching)
 
 ### graphql에 캐쉬
+
 "React 캐시 함수"에 대한 내용은 다음과 같이 해석될 수 있습니다:
 
 React 캐시 함수는 함수의 반환 값을 메모이제이션(기억)하는 데 사용할 수 있습니다. 이를 통해 동일한 함수를 여러 번 호출하면서 한 번만 실행할 수 있습니다.
@@ -103,4 +105,9 @@ fetch 요청은 자동으로 메모이제이션되므로, React 캐시로 감쌀
 
 즉, 이 기능은 동일한 함수를 반복적으로 호출해야 하는 경우에 유용하며, 특히 데이터 요청과 같은 비용이 많이 드는 작업을 최적화하는 데 도움이 됩니다. 이렇게 하면 한 번만 실행하고 그 결과를 재사용하여 성능을 향상시킬 수 있습니다.
 
-> 출처 : [React Cache Function](https://nextjs.org/docs/app/building-your-application/caching#react-cache-function)
+> 출처 : [Next.js Cache Function](https://nextjs.org/docs/app/building-your-application/caching#react-cache-function)  
+> 출처 : [React Cache Function](https://react.dev/reference/react/cache)  
+
+### svg 사용방법
+
+> 출처 : [svg 사용방법](https://github.com/yeonjuan/dev-blog/blob/master/JavaScript/breaking-up-with-svg-in-js-in-2023.md)
