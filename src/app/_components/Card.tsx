@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styles from './card.module.css';
 
 interface CardProps {
+
   name: string
   description: string
   url: string
@@ -15,7 +16,7 @@ const Card = ({ name, description, url, openGraphImageUrl }: CardProps) => {
       <strong className={styles.title}>{name}</strong>
       <div className={styles.cover}>
         <Link href={url} target='_blank'>
-          <img className={styles.card_img} src={openGraphImageUrl} alt={name} loading='lazy' />
+          <Image width={320} height={160} src={openGraphImageUrl} alt={name} loading='lazy' />
         </Link>
       </div>
       <p className={styles.description}>{description}</p>
