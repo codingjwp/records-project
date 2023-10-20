@@ -4,13 +4,13 @@ const now = new Date();
 const year = new Date(now.getFullYear(), 0, 1, 0, 0, 0).toISOString();
 const toDay = now.toISOString();
 const METHOD = 'POST'
+const HEADERS = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
+  'Authorization': `Bearer ${process.env.ACESS_TOKEN}`,
+}
 
 export const totalContributionsFetch = cache(async () => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${process.env.ACESS_TOKEN}`,
-  }
   const query = {
     query: `
       query {
@@ -28,7 +28,7 @@ export const totalContributionsFetch = cache(async () => {
   }
   const options = {
     method: METHOD,
-    headers: headers,
+    headers: HEADERS,
     body: JSON.stringify(query)
   }
   const response = await fetch(`${process.env.GITHUB_API}`, options)
@@ -51,11 +51,6 @@ interface StorageInfo {
 }
 
 export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
-  const headers = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Authorization': `Bearer ${process.env.ACESS_TOKEN}`,
-  }
   const query = {
     query: `
       query {
@@ -76,7 +71,7 @@ export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
   }
   const options = {
     method: METHOD,
-    headers: headers,
+    headers: HEADERS,
     body: JSON.stringify(query)
   }
   const response = await fetch(`${process.env.GITHUB_API}`, options)
@@ -84,4 +79,39 @@ export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
     throw new Error("fetch error response");
   const { data } = await response.json();
   return data.viewer.pinnedItems.nodes as StorageInfo[];
+});
+
+interface RecordsRoot {
+  oid: string;
+  name: string;
+  type: string;
+}
+export const recordRoot = cache(async (): Promise<RecordsRoot[]> => {
+  const query = {
+    query: `
+      query {
+        repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
+          object(expression: "main:") {
+            ... on Tree {
+              entries {
+                oid
+                name
+                type
+            }
+          }
+        }
+      }
+    }`
+  }
+  const options = {
+    method: METHOD,
+    headers: HEADERS,
+    body: JSON.stringify(query)
+  }
+  const response = await fetch(`${process.env.GITHUB_API}`, options);
+  if (!response.ok)
+    throw new Error("fetch error response");
+  const { data } = await response.json();
+  const filterData: RecordsRoot[] = data.repository.object.entries;
+  return filterData.filter((item: RecordsRoot) => item.type === 'tree');
 })
