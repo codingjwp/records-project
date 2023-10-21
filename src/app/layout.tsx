@@ -1,8 +1,9 @@
 import './globals.css'
 import type { Metadata } from 'next'
-import Headers from '@/app/_components/Headers';
+import ServerHeader from './_components/_sc/ServerHeader';
 
-export const revalidate = 3600;
+// 1일
+export const revalidate = 86400;
 
 export const metadata: Metadata = {
   title: 'Git Storage File',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
   icons: [{ rel: 'x-icon', url: './favicon.ico' }]
 }
 
-export default function RootLayout({
+export default function  RootLayout({
   children,
 }: {
   children: React.ReactNode
@@ -19,7 +20,7 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <div>
-          <Headers />
+          <ServerHeader />
           {children}
         </div>
       </body>
