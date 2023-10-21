@@ -1,0 +1,56 @@
+@keyframes cube_rotate {
+  0% {
+    transform: rotateZ(0deg);
+  }
+
+  25% {
+    transform: rotateZ(25deg);
+  }
+
+  50% {
+    transform: rotateZ(0deg);
+  }
+
+  75% {
+    transform: rotateZ(-25deg);
+  }
+
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+
+.bg_root {
+  fill: var(--root-bgcolor);
+}
+
+.bg_font {
+  fill: var(--font-color);
+}
+
+.bg_main {
+  fill: var(--main-900-bgcolor);
+}
+
+.sm {
+  width: 2.4rem;
+  height: 2.4rem;
+}
+
+.md {
+  width: 3.6rem;
+  height: 3.6rem;
+}
+
+.lr {
+  width: 25.6rem;
+  height: 25.6rem;
+}
+
+.main_animation {
+  animation-name: cube_rotate;
+  animation-duration: 1s;
+  animation-timing-function: ease-in-out;
+  animation-delay: 500ms;
+  animation-iteration-count: 2;
+}
