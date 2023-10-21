@@ -1,16 +1,16 @@
-import { storageInfo } from '@/app/_api/dataFetch';
+import { storageInfo } from '@/app/_api/serverFetch';
 import styles from './stoages.module.css';
-import Card from '../_components/Card';
+import Card from '../_components/_sc/Card';
 
 const Storages = async () => {
-  const nodes = await storageInfo();
+  const storages = await storageInfo();
   return (
     <main className={styles.storages_wrapper}>
       <div className={styles.inner}>
       {
-        nodes.map((node) => {
+        storages.map((storage) => {
           return (
-            <Card key={node.databaseId} {...node} />
+            <Card key={storage.databaseId} {...storage} />
           )
         })
       }
