@@ -7,6 +7,7 @@ import { useState, MouseEvent } from 'react';
 interface RecordsInfo {
   oid: string;
   name: string;
+  nameRaw: string;
   type: string;
   hasLink: boolean;
 }
@@ -68,10 +69,13 @@ function ListLink({isSubOpen, keyId, label, hasLink, childs}: ListLinkProps) {
         <li className={styles.sub_menu} id={`${keyId}_${hasLink ? "link" :"sub"}`}>
           <span className={[styles.close, isSubOpen ? styles.open : ""].join(" ")}>{label}</span>
         </li>
-        {(isSubOpen && childs) && childs.map((item) => {
+        {(isSubOpen && childs) && childs.map((item, index) => {
           return (
-            <li className={styles.sub_link} key={`${item.oid}`}>
-              <Link href={`${keyId}/${item.oid}`}>{item.name}</Link>
+            <li key={item.oid} className={styles.sub_link} id={`${index}_${item.hasLink ? "link" :"sub"}`}>
+              <Link href={{
+                pathname: `${keyId}`,
+                query: { name: `${item.nameRaw}`}
+              }}>{item.name}</Link>
             </li>
           )
         })}
