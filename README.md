@@ -108,6 +108,15 @@ fetch 요청은 자동으로 메모이제이션되므로, React 캐시로 감쌀
 > 출처 : [Next.js Cache Function](https://nextjs.org/docs/app/building-your-application/caching#react-cache-function)  
 > 출처 : [React Cache Function](https://react.dev/reference/react/cache)  
 
+### api 라우터 만들기 
+> 출처: [router.ts](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)  
+> 출처: [사용법](https://maryetokwudo.hashnode.dev/nextjs-13-route-handlers-with-typescript)  
+
 ### svg 사용방법
 
-> 출처 : [svg 사용방법](https://github.com/yeonjuan/dev-blog/blob/master/JavaScript/breaking-up-with-svg-in-js-in-2023.md)
+> 출처 : [svg 사용방법](https://github.com/yeonjuan/dev-blog/blob/master/JavaScript/breaking-up-with-svg-in-js-in-2023.md)  
+
+### markdown 사용법 관련
+
+> 출처 : [Render Markdown](https://nextjs.org/learn/basics/dynamic-routes/render-markdown)  
+> 출처 : [markdown 사용법](https://nextjs.org/blog/markdown)  
