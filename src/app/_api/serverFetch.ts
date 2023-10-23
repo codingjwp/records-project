@@ -26,6 +26,7 @@ export const totalCountInfo = cache(async (): Promise<TotalContribution> => {
 interface RecordsInfo {
   oid: string;
   name: string;
+  nameRaw: string;
   type: string;
   hasLink: boolean;
 }
@@ -83,3 +84,34 @@ export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
   return data.viewer.pinnedItems.nodes as StorageInfo[];
 });
 
+export const recordsList = cache(async (name: string): Promise<RecordsInfo[]> => {
+  const options = {
+    method: METHOD,
+    headers: HEADERS,
+    body: JSON.stringify(queryList.folders(name)),
+  }
+  const response = await fetch(`${process.env.GITHUB_API}`, options)
+  if (!response.ok)
+    throw new Error("fetch error response");
+  const { data } = await response.json();
+  const newData: RecordsInfo[] = data.repository.object.entries.map((item: RecordsInfo) => {
+    if (item.type === 'tree')
+      return {...item, hasLink: false};
+    else if (item.type === 'blob')
+      return {...item, hasLink: true};
+  })
+  return newData;
+});
+
+export const markdownText = cache(async (folder: string, file: string): Promise<string> => {
+  const options = {
+    method: METHOD,
+    headers: HEADERS,
+    body: JSON.stringify(queryList.markdown(folder, file)),
+  }
+  const response = await fetch(`${process.env.GITHUB_API}`, options)
+  if (!response.ok)
+    throw new Error("fetch error response");
+  const { data } = await response.json();
+  return data.repository.object.text;
+})

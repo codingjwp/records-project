@@ -52,6 +52,7 @@ export const queryList = {
               entries {
                 oid
                 name
+                nameRaw
                 type
               }
             }
@@ -59,4 +60,37 @@ export const queryList = {
         }
       }`
   },
+  "folders" : (name: string) => {
+    return ({
+      query: `
+        query {
+          repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
+            object(expression: "main:${name}") {
+              ... on Tree {
+                entries {
+                  oid
+                  name
+                  nameRaw
+                  type
+                }
+              }
+            }
+          }
+        }`
+    })
+  },
+  "markdown" : (folder: string, file: string) => {
+    return ({
+      query: `
+        query {
+          repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {   
+            object( expression: "main:${folder}/${file}") {
+              ... on Blob {
+                text
+              }
+            }
+          }
+        }`
+    })
+  }
 }
