@@ -13,6 +13,9 @@ html {
 body {
   margin: 0;
   padding-top: 7.1rem;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
 }
 
 button, a {
