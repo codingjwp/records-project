@@ -23,7 +23,7 @@ const SvgItem = ({ id, color, size }: SvgItemProps) => {
 
   return (
     <svg className={[fillStyle[color], sizeStyle[size], id === "cube" ? styles.main_animation : ""].join(" ")}>
-      <use href={"svgs/iconsprite.svg#" + `${id}`} />
+      <use href={"/svgs/iconsprite.svg#" + `${id}`} />
     </svg>
   )
 }
