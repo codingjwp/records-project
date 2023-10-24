@@ -18,7 +18,8 @@ body {
   -moz-user-select: none;
 }
 
-button, a {
+button,
+a {
   cursor: pointer;
 }
 
