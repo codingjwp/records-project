@@ -1,6 +1,7 @@
 import styles from './recordsPage.module.css'
 import { recordsList } from '@/app/_api/serverFetch'
 import Collapsible from '../_components/_sc/Collapsible'
+import { notFound } from 'next/navigation'
 
 const RecordsPage = async ({
   searchParams,
@@ -10,6 +11,7 @@ const RecordsPage = async ({
   const files = await recordsList(
     Buffer.from(searchParams.name, 'base64').toString('utf-8'),
   )
+  if (!files) notFound()
 
   return (
     <main className={styles.records_wrap}>

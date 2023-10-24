@@ -7,35 +7,38 @@ interface TotalContribution {
 }
 
 interface TotalQuery {
-  viewer: {
-    pinnedItems: {
-      totalCount: number
-    }
-    contributionsCollection: {
-      contributionCalendar: {
-        totalContributions: number
+  data: {
+    viewer: {
+      pinnedItems: {
+        totalCount: number
+      }
+      contributionsCollection: {
+        contributionCalendar: {
+          totalContributions: number
+        }
       }
     }
   }
 }
 
-export const totalCountInfo = cache(async (): Promise<TotalContribution> => {
-  const options = {
-    method: METHOD,
-    headers: HEADERS,
-    body: JSON.stringify(queryList.total),
-  }
-  const response = await fetch(`${process.env.GITHUB_API}`, options)
-  if (!response.ok) throw new Error('fetch error response')
-  const data = (await response.json()) as TotalQuery
-
-  return {
-    totalPinStorages: data.viewer.pinnedItems.totalCount,
-    totalContributions:
-      data.viewer.contributionsCollection.contributionCalendar
-        .totalContributions,
-  }
-})
+export const totalCountInfo = cache(
+  async (): Promise<TotalContribution | undefined> => {
+    const options = {
+      method: METHOD,
+      headers: HEADERS,
+      body: JSON.stringify(queryList.total),
+    }
+    const response = await fetch(`${process.env.GITHUB_API}`, options)
+    if (!response.ok) throw new Error('fetch error response')
+    const { data } = (await response.json()) as TotalQuery
+    return {
+      totalPinStorages: data?.viewer?.pinnedItems?.totalCount,
+      totalContributions:
+        data?.viewer?.contributionsCollection?.contributionCalendar
+          ?.totalContributions,
+    }
+  },
+)
 
 interface RecordsInfo {
   oid: string
@@ -53,37 +56,41 @@ interface NavigationInfo {
 }
 
 interface RecordsQuery {
-  repository: {
-    object: {
-      entries: RecordsInfo[]
+  data: {
+    repository: {
+      object: {
+        entries: RecordsInfo[]
+      }
     }
   }
 }
 
-export const headerList = cache(async (): Promise<NavigationInfo[]> => {
-  const options = {
-    method: METHOD,
-    headers: HEADERS,
-    body: JSON.stringify(queryList.records),
-  }
-  const response = await fetch(`${process.env.GITHUB_API}`, options)
-  if (!response.ok) throw new Error('fetch error response')
-  const data = (await response.json()) as RecordsQuery
-  const list: NavigationInfo[] = [
-    { keyId: 'storages', label: '저장소', hasLink: true, childs: undefined },
-    {
-      keyId: 'records',
-      label: '기록소',
-      hasLink: false,
-      childs: data.repository.object.entries
-        .filter((item: RecordsInfo) => item.type === 'tree')
-        .map((after: RecordsInfo) => {
-          return { ...after, hasLink: true }
-        }),
-    },
-  ]
-  return list
-})
+export const headerList = cache(
+  async (): Promise<NavigationInfo[] | undefined> => {
+    const options = {
+      method: METHOD,
+      headers: HEADERS,
+      body: JSON.stringify(queryList.records),
+    }
+    const response = await fetch(`${process.env.GITHUB_API}`, options)
+    if (!response.ok) throw new Error('fetch error response')
+    const { data } = (await response.json()) as RecordsQuery
+    const list: NavigationInfo[] = [
+      { keyId: 'storages', label: '저장소', hasLink: true, childs: undefined },
+      {
+        keyId: 'records',
+        label: '기록소',
+        hasLink: false,
+        childs: data?.repository?.object?.entries
+          ?.filter((item: RecordsInfo) => item.type === 'tree')
+          .map((after: RecordsInfo) => {
+            return { ...after, hasLink: true }
+          }),
+      },
+    ]
+    return list
+  },
+)
 
 interface StorageInfo {
   databaseId: number
@@ -94,27 +101,32 @@ interface StorageInfo {
 }
 
 interface StorageQuery {
-  viewer: {
-    pinnedItems: {
-      nodes: StorageInfo[]
+  data: {
+    viewer: {
+      pinnedItems: {
+        nodes: StorageInfo[]
+      }
     }
   }
 }
 
-export const storageInfo = cache(async (): Promise<StorageInfo[]> => {
-  const options = {
-    method: METHOD,
-    headers: HEADERS,
-    body: JSON.stringify(queryList.storages),
-  }
-  const response = await fetch(`${process.env.GITHUB_API}`, options)
-  if (!response.ok) throw new Error('fetch error response')
-  const data = (await response.json()) as StorageQuery
-  return data.viewer.pinnedItems.nodes
-})
+export const storageInfo = cache(
+  async (): Promise<StorageInfo[] | undefined> => {
+    const options = {
+      method: METHOD,
+      headers: HEADERS,
+      body: JSON.stringify(queryList.storages),
+    }
+    const response = await fetch(`${process.env.GITHUB_API}`, options)
+    if (!response.ok) throw new Error('fetch error response')
+    const { data } = (await response.json()) as StorageQuery
+    return data?.viewer?.pinnedItems?.nodes
+  },
+)
 
 export const recordsList = cache(
-  async (name: string): Promise<RecordsInfo[]> => {
+  async (name?: string): Promise<RecordsInfo[] | undefined> => {
+    if (!name) return undefined
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -122,8 +134,8 @@ export const recordsList = cache(
     }
     const response = await fetch(`${process.env.GITHUB_API}`, options)
     if (!response.ok) throw new Error('fetch error response')
-    const data = (await response.json()) as RecordsQuery
-    const newData: RecordsInfo[] = data.repository.object.entries.map(
+    const { data } = (await response.json()) as RecordsQuery
+    const newData: RecordsInfo[] = data?.repository?.object?.entries?.map(
       (item: RecordsInfo) => {
         if (item.type === 'tree') return { ...item, hasLink: false }
         else return { ...item, hasLink: true }
@@ -134,15 +146,18 @@ export const recordsList = cache(
 )
 
 interface MarkdownQuery {
-  repository: {
-    object: {
-      text: string
+  data: {
+    repository: {
+      object: {
+        text: string
+      }
     }
   }
 }
 
 export const markdownText = cache(
-  async (folder: string, file: string): Promise<string> => {
+  async (folder?: string, file?: string): Promise<string | undefined> => {
+    if (!folder || !file) return undefined
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -150,7 +165,7 @@ export const markdownText = cache(
     }
     const response = await fetch(`${process.env.GITHUB_API}`, options)
     if (!response.ok) throw new Error('fetch error response')
-    const data = (await response.json()) as MarkdownQuery
-    return data.repository.object.text
+    const { data } = (await response.json()) as MarkdownQuery
+    return data?.repository?.object?.text
   },
 )
