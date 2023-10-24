@@ -1,31 +1,105 @@
-.header {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  background-color: var(--main-700-bgcolor);
-  height: 4rem;
-}
-.header a,
-.title {
-  font-size: 1.4rem;
-  color: var(--root-bgcolor);
+.convert {
+  font-size: 1.2rem;
+  padding: 2rem;
 }
 
-.title {
+.convert a {
+  color: var(--font-color);
+}
+
+.convert h1,
+.convert h2,
+.convert h3,
+.convert p,
+.convert ul,
+.convert pre:has(code) {
+  width: calc(100% - 4rem);
+}
+
+.convert h2 {
+  font-size: 2rem;
+}
+
+.convert h3 {
+  font-size: 1.6rem;
+}
+
+.convert p {
+  line-height: 2.4rem;
+}
+.convert li {
+  list-style: inside;
+  line-height: 3.2rem;
+}
+
+.convert code:not([class^='language-']) {
+  color: var(--main-700-bgcolor);
+  background-color: #eee0fe;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+.convert p code:not([class^='language-']),
+.convert li code:not([class^='language-']) {
+  padding: 0.8rem;
   font-weight: 600;
-  margin-left: 2rem;
+  border-radius: 1rem;
 }
 
-.header a {
-  display: inline-flex;
-  height: calc(100% - 2rem);
-  padding: 1rem 2rem;
-  align-items: center;
-  justify-content: center;
+.convert pre:has(code) {
+  position: relative;
+  padding: 1rem;
+  margin: 2rem;
+  line-height: 2rem;
+  color: #4673d4;
+  background-color: #faf6ff;
+  border: 0.2rem solid #e9d8fd;
 }
 
-.header a span {
-  display: flex;
+.convert pre:has([class$='bash'])::before {
+  content: 'bash';
+}
+.convert pre:has([class$='python'])::before {
+  content: 'python';
+}
+.convert pre:has([class$='typescript'])::before {
+  content: 'typescript';
+}
+.convert pre:has([class$='javascript'])::before {
+  content: 'javascript';
+}
+.convert pre:has([class$='html'])::before {
+  content: 'html';
+}
+.convert pre:has([class$='css'])::before {
+  content: 'css';
 }
 
+.convert pre:has([class$='html'])::before,
+.convert pre:has([class$='css'])::before,
+.convert pre:has([class$='bash'])::before,
+.convert pre:has([class$='python'])::before,
+.convert pre:has([class$='typescript'])::before,
+.convert pre:has([class$='javascript'])::before {
+  text-align: center;
+  position: absolute;
+  top: -1.2rem;
+  left: 1rem;
+  padding: 0.1rem 0.5rem;
+  height: 2rem;
+  border-radius: 1rem;
+  color: var(--font-color);
+  background-color: #a96af7;
+}
+
+.convert img {
+  width: calc(100% - 10rem);
+}
+
+.convert table {
+  border: 0.1rem solid var(--font-color);
+}
+.convert th,
+.convert td {
+  padding: 1rem;
+}

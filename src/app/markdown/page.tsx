@@ -1,22 +1,26 @@
-import Link from 'next/link';
-import styles from './mdPage.module.css';
-import { markdownText } from '../_api/serverFetch';
+import styles from './mdPage.module.css'
+import MdHeader from '../_components/_sc/MdHeader'
+import { markdownText } from '../_api/serverFetch'
+import { transMdOfHtml } from '../_api/transMdOfHtml'
 
-const MarkdownPage = async ({searchParams}: {searchParams: {name: string, file: string}}) => {
+const MarkdownPage = async ({
+  searchParams,
+}: {
+  searchParams: { name: string; file: string }
+}) => {
   const folder = Buffer.from(searchParams.name, 'base64').toString('utf-8')
   const file = Buffer.from(searchParams.file, 'base64').toString('utf-8')
-  const text = await markdownText(folder, file);
+  const text = await markdownText(folder, file)
+  const test = await transMdOfHtml(text)
   return (
-  <div>
-    <div className={styles.header}>
-      <span className={styles.title}>{folder}</span>
-      <Link href={{
-        pathname: 'records',
-        query: {name: searchParams.name}
-      }}><span>목록</span></Link>
-    </div>
-    {text}
-  </div>)
+    <>
+      <MdHeader folder={folder} name={searchParams.name} />
+      <div
+        className={styles.convert}
+        dangerouslySetInnerHTML={{ __html: test }}
+      ></div>
+    </>
+  )
 }
 
-export default MarkdownPage;
+export default MarkdownPage

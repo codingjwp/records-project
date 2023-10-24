@@ -1,12 +1,7 @@
-import styles from './mdLayout.module.css';
+import styles from './mdLayout.module.css'
 
-const MarkdownLayout = ({children}: {children: React.ReactNode}) => {
-  
-  return (
-    <main className={styles.markdown}>
-      {children}
-    </main>
-  )
+const MarkdownLayout = ({ children }: { children: React.ReactNode }) => {
+  return <main className={styles.markdown}>{children}</main>
 }
 
-export default MarkdownLayout;
+export default MarkdownLayout
