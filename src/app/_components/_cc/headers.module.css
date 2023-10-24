@@ -150,7 +150,7 @@
 .navigator .sub_link a::after,
 .navigator .sub_menu span.close::before {
   content: '';
-  position: absolute;  
+  position: absolute;
 }
 
 .navigator .sub_menu span.close::before {
