@@ -1,0 +1,30 @@
+.header {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--main-700-bgcolor);
+  height: 4rem;
+}
+.header a,
+.title {
+  font-size: 1.4rem;
+  color: var(--root-bgcolor);
+}
+
+.title {
+  font-weight: 600;
+  margin-left: 2rem;
+}
+
+.header a {
+  display: inline-flex;
+  height: calc(100% - 2rem);
+  padding: 1rem 2rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.header a span {
+  display: flex;
+}
