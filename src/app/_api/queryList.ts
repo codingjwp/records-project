@@ -1,16 +1,16 @@
 export const METHOD = 'POST'
 export const HEADERS = {
   'Content-Type': 'application/json',
-  'Accept': 'application/json',
-  'Authorization': `Bearer ${process.env.ACESS_TOKEN}`,
+  Accept: 'application/json',
+  Authorization: `Bearer ${process.env.ACESS_TOKEN}`,
 }
 
-const now = new Date();
-const year = new Date(now.getFullYear(), 0, 1, 0, 0, 0).toISOString();
-const toDay = now.toISOString();
+const now = new Date()
+const year = new Date(now.getFullYear(), 0, 1, 0, 0, 0).toISOString()
+const toDay = now.toISOString()
 
 export const queryList = {
-  "total": {
+  total: {
     query: `
       query {
         viewer {
@@ -25,7 +25,7 @@ export const queryList = {
       }
     }`,
   },
-  "storages" : {
+  storages: {
     query: `
       query {
         viewer {
@@ -43,7 +43,7 @@ export const queryList = {
         }
       }`,
   },
-  "records" : {
+  records: {
     query: `
       query {
         repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
@@ -58,10 +58,10 @@ export const queryList = {
             }
           }
         }
-      }`
+      }`,
   },
-  "folders" : (name: string) => {
-    return ({
+  folders: (name: string) => {
+    return {
       query: `
         query {
           repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
@@ -76,11 +76,11 @@ export const queryList = {
               }
             }
           }
-        }`
-    })
+        }`,
+    }
   },
-  "markdown" : (folder: string, file: string) => {
-    return ({
+  markdown: (folder: string, file: string) => {
+    return {
       query: `
         query {
           repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {   
@@ -90,7 +90,7 @@ export const queryList = {
               }
             }
           }
-        }`
-    })
-  }
+        }`,
+    }
+  },
 }
