@@ -34,14 +34,22 @@ const Headers = ({ lists }: { lists: NavigationInfo[] }) => {
     const hasMenu =
       target?.id.includes('viewMenu') || parent.includes('viewMenu')
     const hasSub = target?.id.includes('_sub') || parent.includes('_sub')
+    if (!hasLink && !hasMenu && !hasSub) {
+      setIsOpen(false)
+      setIsSubOpen(false)
+      return
+    }
     setIsOpen((prev) => (hasMenu ? !prev : hasLink ? false : prev))
-    setIsSubOpen((prev) =>
-      (hasLink || hasMenu) && isOpen ? false : hasSub ? !prev : prev,
-    )
+    setIsSubOpen((prev) => (hasLink || hasMenu ? false : hasSub ? !prev : prev))
   }
 
   return (
-    <header className={styles.header} onClick={menuOpenOfClose}>
+    <header
+      className={[styles.header, isOpen || isSubOpen ? styles.open : ''].join(
+        ' ',
+      )}
+      onClick={menuOpenOfClose}
+    >
       <div className={styles.inner}>
         <h1 id="logo_link" className={styles.logo}>
           <Link href={'/'}>기록</Link>
@@ -89,25 +97,28 @@ function ListLink({ isSubOpen, keyId, label, hasLink, childs }: ListLinkProps) {
             {label}
           </span>
         </li>
-        {isSubOpen &&
-          childs?.map((item, index) => {
-            return (
-              <li
-                key={item.oid}
-                className={styles.sub_link}
-                id={`${index}_${item.hasLink ? 'link' : 'sub'}`}
-              >
-                <Link
-                  href={{
-                    pathname: `${keyId}`,
-                    query: { name: `${item.nameRaw}` },
-                  }}
+        {isSubOpen && (
+          <ul className={styles.sub_cover}>
+            {childs?.map((item, index) => {
+              return (
+                <li
+                  key={item.oid}
+                  className={styles.sub_link}
+                  id={`${index}_${item.hasLink ? 'link' : 'sub'}`}
                 >
-                  {item.name}
-                </Link>
-              </li>
-            )
-          })}
+                  <Link
+                    href={{
+                      pathname: `${keyId}`,
+                      query: { name: `${item.nameRaw}` },
+                    }}
+                  >
+                    {item.name}
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+        )}
       </>
     )
   }
