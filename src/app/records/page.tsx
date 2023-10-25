@@ -3,6 +3,8 @@ import { recordsList } from '@/app/_api/serverFetch'
 import Collapsible from '../_components/_sc/Collapsible'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 86400
+
 const RecordsPage = async ({
   searchParams,
 }: {

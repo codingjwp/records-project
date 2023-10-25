@@ -4,6 +4,8 @@ import { markdownText } from '../_api/serverFetch'
 import { transMdOfHtml } from '../_api/transMdOfHtml'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 86400
+
 const MarkdownPage = async ({
   searchParams,
 }: {

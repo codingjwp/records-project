@@ -3,6 +3,8 @@ import styles from './stoages.module.css'
 import Card from '../_components/_sc/Card'
 import { notFound } from 'next/navigation'
 
+export const revalidate = 86400
+
 const Storages = async () => {
   const storages = await storageInfo()
   if (!storages) notFound()
