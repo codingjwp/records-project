@@ -2,7 +2,7 @@
 
 import styles from './headers.module.css'
 import Link from 'next/link'
-import { useState, MouseEvent } from 'react'
+import { useState, useEffect, MouseEvent } from 'react'
 
 interface RecordsInfo {
   oid: string
@@ -42,6 +42,19 @@ const Headers = ({ lists }: { lists: NavigationInfo[] }) => {
     setIsOpen((prev) => (hasMenu ? !prev : hasLink ? false : prev))
     setIsSubOpen((prev) => (hasLink || hasMenu ? false : hasSub ? !prev : prev))
   }
+
+  useEffect(() => {
+    const resizeNavClose = () => {
+      if (window.matchMedia('(min-width:1024px)').matches) {
+        setIsOpen((prev) => (prev ? !prev : prev))
+        setIsSubOpen((prev) => (prev ? !prev : prev))
+      }
+    }
+    window.addEventListener('resize', resizeNavClose)
+    return () => {
+      window.removeEventListener('resize', resizeNavClose)
+    }
+  }, [])
 
   return (
     <header
