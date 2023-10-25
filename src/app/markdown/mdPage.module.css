@@ -34,14 +34,14 @@
 
 .convert code:not([class^='language-']) {
   color: var(--main-700-bgcolor);
-  background-color: #eee0fe;
+  background-color: var(--code-base-bgcolor);
   padding: 0.5rem;
   border-radius: 0.5rem;
 }
 
 .convert p code:not([class^='language-']),
 .convert li code:not([class^='language-']) {
-  padding: 0.8rem;
+  padding: 0.5rem;
   font-weight: 600;
   border-radius: 1rem;
 }
@@ -51,9 +51,9 @@
   padding: 1rem;
   margin: 2rem;
   line-height: 2rem;
-  color: #4673d4;
-  background-color: #faf6ff;
-  border: 0.2rem solid #e9d8fd;
+  color: var(--code-type-color);
+  background-color: var(--code-type-bgcolor);
+  border: 0.2rem solid var(--code-border-color);
 }
 
 .convert pre:has([class$='bash'])::before {
@@ -89,7 +89,7 @@
   height: 2rem;
   border-radius: 1rem;
   color: var(--font-color);
-  background-color: #a96af7;
+  background-color: var(--code-title-bgcolor);
 }
 
 .convert img {
