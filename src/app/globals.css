@@ -4,6 +4,11 @@
   --main-500-bgcolor: #3b82f6;
   --main-700-bgcolor: #325fdc;
   --main-900-bgcolor: #1e3a8a;
+  --code-base-bgcolor: #eee0fe;
+  --code-type-bgcolor: #faf6ff;
+  --code-title-bgcolor: #a96af7;
+  --code-border-color: #e9d8fd;
+  --code-type-color: #4673d4;
 }
 
 html {
