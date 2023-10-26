@@ -1,3 +1,7 @@
+.inner {
+  width: 100%;
+  border: 0.5rem solid var(--main-700-bgcolor);
+}
 .convert {
   font-size: 1.2rem;
   padding: 2rem;
@@ -115,4 +119,12 @@
 .convert th,
 .convert td {
   padding: 1rem;
+}
+
+
+@media screen and (min-width: 1024px) {
+  .inner {
+    max-width: 144rem;
+    margin: 0 auto;
+  }
 }

@@ -1,5 +1,5 @@
 .section_wrap {
-  width: 100%;
+  width: calc(100% - 0.2rem);
   position: relative;
 }
 
@@ -64,4 +64,11 @@
   text-overflow: ellipsis;
   font-size: 1.4rem;
   margin: 0 2rem 0 7rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .collapsible {
+    border-right: 0.1rem solid var(--main-900-bgcolor);
+    border-left: 0.1rem solid var(--main-900-bgcolor);
+  }
 }

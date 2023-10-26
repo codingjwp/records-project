@@ -199,8 +199,9 @@
 
 @media screen and (min-width: 1024px) {
   .inner {
-    max-width: 102.4rem;
+    max-width: 144rem;
     justify-content: flex-start;
+    margin: 0 auto;
   }
   .view_menu,
   .view_menu::before,

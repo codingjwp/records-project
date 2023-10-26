@@ -1,5 +1,4 @@
 .markdown {
   width: calc(100% - 3rem);
   margin: 1rem;
-  border: 0.5rem solid var(--main-700-bgcolor);
 }

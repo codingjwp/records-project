@@ -18,13 +18,13 @@ const MarkdownPage = async ({
   const test = await transMdOfHtml(text)
 
   return (
-    <>
+    <div className={styles.inner}>
       <MdHeader folder={folder} name={searchParams.name} />
       <div
         className={styles.convert}
         dangerouslySetInnerHTML={{ __html: test }}
       ></div>
-    </>
+    </div>
   )
 }
 
