@@ -22,7 +22,7 @@ interface TotalQuery {
 }
 
 export const totalCountInfo = cache(
-  async (): Promise<TotalContribution | undefined> => {
+  async (): Promise<TotalContribution | null> => {
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -52,7 +52,7 @@ interface NavigationInfo {
   keyId: string
   label: string
   hasLink: boolean
-  childs?: RecordsInfo[]
+  childs: RecordsInfo[] | null
 }
 
 interface RecordsQuery {
@@ -66,7 +66,7 @@ interface RecordsQuery {
 }
 
 export const headerList = cache(
-  async (): Promise<NavigationInfo[] | undefined> => {
+  async (): Promise<NavigationInfo[] | null> => {
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -76,7 +76,7 @@ export const headerList = cache(
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as RecordsQuery
     const list: NavigationInfo[] = [
-      { keyId: 'storages', label: '저장소', hasLink: true, childs: undefined },
+      { keyId: 'storages', label: '저장소', hasLink: true, childs: null },
       {
         keyId: 'records',
         label: '기록소',
@@ -111,7 +111,7 @@ interface StorageQuery {
 }
 
 export const storageInfo = cache(
-  async (): Promise<StorageInfo[] | undefined> => {
+  async (): Promise<StorageInfo[] | null> => {
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -125,8 +125,8 @@ export const storageInfo = cache(
 )
 
 export const recordsList = cache(
-  async (name?: string): Promise<RecordsInfo[] | undefined> => {
-    if (!name) return undefined
+  async (name?: string): Promise<RecordsInfo[] | null> => {
+    if (!name) return null
     const options = {
       method: METHOD,
       headers: HEADERS,
@@ -156,8 +156,8 @@ interface MarkdownQuery {
 }
 
 export const markdownText = cache(
-  async (folder?: string, file?: string): Promise<string | undefined> => {
-    if (!folder || !file) return undefined
+  async (folder?: string, file?: string): Promise<string | null> => {
+    if (!folder || !file) return null
     const options = {
       method: METHOD,
       headers: HEADERS,
