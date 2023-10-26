@@ -32,6 +32,16 @@
   line-height: 3.2rem;
 }
 
+.convert li ul li {
+  margin-left: 2rem;
+}
+
+.convert li p {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 0.4rem
+}
+
 .convert code:not([class^='language-']) {
   color: var(--main-700-bgcolor);
   background-color: var(--code-base-bgcolor);
@@ -98,6 +108,9 @@
 
 .convert table {
   border: 0.1rem solid var(--font-color);
+}
+.convert table > thead > tr > th {
+  border-bottom: 0.1rem solid var(--font-color);
 }
 .convert th,
 .convert td {
