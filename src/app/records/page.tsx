@@ -8,10 +8,10 @@ export const revalidate = 86400
 const RecordsPage = async ({
   searchParams,
 }: {
-  searchParams: { name: string }
+  searchParams: { paths: string }
 }) => {
   const files = await recordsList(
-    Buffer.from(searchParams.name, 'base64').toString('utf-8'),
+    Buffer.from(searchParams.paths, 'base64').toString('utf-8'),
   )
   if (!files) notFound()
 
@@ -20,7 +20,7 @@ const RecordsPage = async ({
       <div className={styles.inner}>
         {files.map((item) => {
           return (
-            <Collapsible key={item.oid} {...item} parent={searchParams.name} />
+            <Collapsible key={item.oid} {...item} parent={Buffer.from(item.path, 'utf-8').toString('base64')} />
           )
         })}
       </div>
