@@ -41,6 +41,7 @@ export const totalCountInfo = cache(
 )
 
 interface RecordsInfo {
+  path: string;
   oid: string
   name: string
   nameRaw: string
@@ -52,7 +53,7 @@ interface NavigationInfo {
   keyId: string
   label: string
   hasLink: boolean
-  childs: RecordsInfo[] | null
+  childs?: RecordsInfo[]
 }
 
 interface RecordsQuery {
@@ -66,17 +67,17 @@ interface RecordsQuery {
 }
 
 export const headerList = cache(
-  async (): Promise<NavigationInfo[] | null> => {
+  async (): Promise<NavigationInfo[]> => {
     const options = {
       method: METHOD,
       headers: HEADERS,
-      body: JSON.stringify(queryList.records),
+      body: JSON.stringify(queryList.linkLists('tree', '')),
     }
     const response = await fetch(`${process.env.GITHUB_API}`, options)
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as RecordsQuery
     const list: NavigationInfo[] = [
-      { keyId: 'storages', label: '저장소', hasLink: true, childs: null },
+      { keyId: 'storages', label: '저장소', hasLink: true, childs: undefined },
       {
         keyId: 'records',
         label: '기록소',
@@ -125,12 +126,12 @@ export const storageInfo = cache(
 )
 
 export const recordsList = cache(
-  async (name?: string): Promise<RecordsInfo[] | null> => {
-    if (!name) return null
+  async (paths?: string): Promise<RecordsInfo[] | null> => {
+    if (!paths) return null
     const options = {
       method: METHOD,
       headers: HEADERS,
-      body: JSON.stringify(queryList.folders(name)),
+      body: JSON.stringify(queryList.linkLists('tree', paths)),
     }
     const response = await fetch(`${process.env.GITHUB_API}`, options)
     if (!response.ok) throw new Error('fetch error response')
@@ -156,12 +157,12 @@ interface MarkdownQuery {
 }
 
 export const markdownText = cache(
-  async (folder?: string, file?: string): Promise<string | null> => {
-    if (!folder || !file) return null
+  async (paths?: string): Promise<string | null> => {
+    if (!paths) return null
     const options = {
       method: METHOD,
       headers: HEADERS,
-      body: JSON.stringify(queryList.markdown(folder, file)),
+      body: JSON.stringify(queryList.linkLists('blob', paths)),
     }
     const response = await fetch(`${process.env.GITHUB_API}`, options)
     if (!response.ok) throw new Error('fetch error response')

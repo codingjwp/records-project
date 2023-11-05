@@ -43,51 +43,29 @@ export const queryList = {
         }
       }`,
   },
-  records: {
-    query: `
-      query {
-        repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
-          object(expression: "main:") {
-            ... on Tree {
-              entries {
-                oid
-                name
-                nameRaw
-                type
-              }
-            }
-          }
-        }
-      }`,
-  },
-  folders: (name: string) => {
+  linkLists: (type: string, paths: string) => {
+    const treeType = `
+    ... on Tree {
+      entries {
+        path
+        oid
+        name
+        nameRaw
+        type
+      }
+    }
+    `
+    const blobType = `
+    ... on Blob {
+      text
+    }
+    `
     return {
       query: `
         query {
           repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
-            object(expression: "main:${name}") {
-              ... on Tree {
-                entries {
-                  oid
-                  name
-                  nameRaw
-                  type
-                }
-              }
-            }
-          }
-        }`,
-    }
-  },
-  markdown: (folder: string, file: string) => {
-    return {
-      query: `
-        query {
-          repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {   
-            object( expression: "main:${folder}/${file}") {
-              ... on Blob {
-                text
-              }
+            object(expression: "main:${paths}") {
+              ${type === 'tree' ? treeType : blobType}
             }
           }
         }`,
