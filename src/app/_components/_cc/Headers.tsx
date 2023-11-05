@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { useState, useEffect, MouseEvent } from 'react'
 
 interface RecordsInfo {
+  path: string
   oid: string
   name: string
   nameRaw: string
@@ -122,7 +123,7 @@ function ListLink({ isSubOpen, keyId, label, hasLink, childs }: ListLinkProps) {
                   <Link
                     href={{
                       pathname: `${keyId}`,
-                      query: { name: `${item.nameRaw}` },
+                      query: { paths: `${Buffer.from(item.path, 'utf-8').toString('base64')}`},
                     }}
                   >
                     {item.name}

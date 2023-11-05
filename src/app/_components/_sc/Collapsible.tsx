@@ -6,11 +6,10 @@ type TYPESTYLE = 'tree' | 'blob'
 interface CollapsibleProps {
   parent: string
   name: string
-  nameRaw: string
   type: string
 }
 
-const Collapsible = ({ parent, name, nameRaw, type }: CollapsibleProps) => {
+const Collapsible = ({ parent, name, type }: CollapsibleProps) => {
   const typeStyle = {
     tree: `${styles.section_wrap} ${styles.tree}`,
     blob: `${styles.section_wrap} ${styles.blob}`,
@@ -19,10 +18,9 @@ const Collapsible = ({ parent, name, nameRaw, type }: CollapsibleProps) => {
     <div className={typeStyle[type as TYPESTYLE]}>
       <Link
         href={{
-          pathname: 'markdown',
+          pathname: type === 'tree' ? 'records' : 'markdown',
           query: {
-            name: parent,
-            file: nameRaw,
+            paths: parent,
           },
         }}
         className={styles.collapsible}

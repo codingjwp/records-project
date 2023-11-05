@@ -5,7 +5,6 @@ import { notFound } from 'next/navigation'
 const ServerHeader = async () => {
   const lists = await headerList()
   if (!lists) notFound()
-
   return <Headers lists={lists} />
 }
 
