@@ -9,17 +9,16 @@ export const revalidate = 86400
 const MarkdownPage = async ({
   searchParams,
 }: {
-  searchParams: { name: string; file: string }
+  searchParams: { paths: string }
 }) => {
-  const folder = Buffer.from(searchParams.name, 'base64').toString('utf-8')
-  const file = Buffer.from(searchParams.file, 'base64').toString('utf-8')
-  const text = await markdownText(folder, file)
+  const paths = Buffer.from(searchParams.paths, 'base64').toString('utf-8')
+  const text = await markdownText(paths)
   if (!text) notFound()
   const test = await transMdOfHtml(text)
 
   return (
     <div className={styles.inner}>
-      <MdHeader folder={folder} name={searchParams.name} />
+      <MdHeader paths={paths} />
       <div
         className={styles.convert}
         dangerouslySetInnerHTML={{ __html: test }}
