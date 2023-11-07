@@ -1,5 +1,5 @@
 import styles from './recordsPage.module.css'
-import { recordsList } from '@/app/_api/serverFetch'
+import { recordsList, convertUtfToBase64 } from '@/app/_api/serverFetch'
 import Collapsible from '../_components/_sc/Collapsible'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
@@ -11,10 +11,11 @@ const RecordsPage = async ({
 }: {
   searchParams: { paths: string }
 }) => {
-  const returnPaths = Buffer.from(searchParams.paths, 'base64').toString('utf-8')
+  const returnPaths = convertUtfToBase64('utf8', searchParams.paths)
   const files = await recordsList(returnPaths)
   const pathsSplit = returnPaths.split('/');
   if (!files) notFound()
+  
   return (
     <main className={styles.records_wrap}>
       <div className={styles.inner}>
@@ -23,20 +24,20 @@ const RecordsPage = async ({
             <div className={styles.returnlink_wrap}>
               <Link href={{
                 pathname: 'records',
-                query: { paths: Buffer.from(pathsSplit[0], 'utf-8').toString('base64')}}}
+                query: { paths: convertUtfToBase64('base64', pathsSplit.at(0) as string) }}}
                 className={styles.returnlink}
                 ><span>•</span></Link></div>
             <div className={styles.returnlink_wrap}>
               <Link href={{
               pathname: 'records',
-              query: { paths: Buffer.from(pathsSplit[pathsSplit.length - 2], 'utf-8').toString('base64')}}}
+              query: { paths: convertUtfToBase64('base64', pathsSplit.slice(0, -1).join('/'))}}}
               className={styles.returnlink}
               ><span>•••</span></Link></div>
           </>
         }
         {files.map((item) => {
           return (
-            <Collapsible key={item.oid} {...item} parent={Buffer.from(item.path, 'utf-8').toString('base64')} />
+            <Collapsible key={item.oid} {...item} parent={convertUtfToBase64('base64', item.path)} />
           )
         })}
       </div>

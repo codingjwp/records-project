@@ -142,7 +142,17 @@ export const recordsList = cache(
         else return { ...item, hasLink: true }
       },
     )
-    return newData
+    return newData.sort((beforObj, afterObj) => {
+      if (beforObj.type === 'tree' && afterObj.type !== 'tree') {
+        return -1;
+      }
+      if (beforObj.type !== 'tree' && afterObj.type === 'tree') {
+        return 1;
+      }
+      else {
+        return 0;
+      }
+    })
   },
 )
 
@@ -170,3 +180,9 @@ export const markdownText = cache(
     return data?.repository?.object?.text
   },
 )
+
+export const convertUtfToBase64 = (types: 'utf8' | 'base64', str: string) => {
+  return types === 'utf8'
+  ? Buffer.from(str, 'base64').toString('utf-8')
+  : Buffer.from(str, 'utf-8').toString('base64')
+}

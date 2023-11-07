@@ -1,6 +1,6 @@
 import styles from './mdPage.module.css'
 import MdHeader from '../_components/_sc/MdHeader'
-import { markdownText } from '../_api/serverFetch'
+import { markdownText, convertUtfToBase64 } from '../_api/serverFetch'
 import { transMdOfHtml } from '../_api/transMdOfHtml'
 import { notFound } from 'next/navigation'
 
@@ -11,7 +11,7 @@ const MarkdownPage = async ({
 }: {
   searchParams: { paths: string }
 }) => {
-  const paths = Buffer.from(searchParams.paths, 'base64').toString('utf-8')
+  const paths = convertUtfToBase64('utf8', searchParams.paths)
   const text = await markdownText(paths)
   if (!text) notFound()
   const test = await transMdOfHtml(text)

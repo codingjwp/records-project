@@ -1,5 +1,6 @@
 import styles from './mdheader.module.css'
 import Link from 'next/link'
+import { convertUtfToBase64 } from '@/app/_api/serverFetch';
 
 const MdHeader = ({ paths }: {paths: string}) => {
   const folders = paths.split('/');
@@ -10,7 +11,7 @@ const MdHeader = ({ paths }: {paths: string}) => {
       <Link
         href={{
           pathname: 'records',
-          query: { paths: Buffer.from(queryString, 'utf-8').toString('base64')},
+          query: { paths: convertUtfToBase64('base64', queryString)},
         }}
       >
         <span>목록</span>
