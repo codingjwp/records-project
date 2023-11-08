@@ -1,5 +1,5 @@
-import { cache } from 'react'
 import { METHOD, HEADERS, queryList } from './queryList'
+import { unstable_cache } from 'next/cache'
 
 interface TotalContribution {
   totalPinStorages: number
@@ -21,7 +21,7 @@ interface TotalQuery {
   }
 }
 
-export const totalCountInfo = cache(
+export const totalCountInfo = unstable_cache(
   async (): Promise<TotalContribution | null> => {
     const options = {
       method: METHOD,
@@ -37,7 +37,7 @@ export const totalCountInfo = cache(
         data?.viewer?.contributionsCollection?.contributionCalendar
           ?.totalContributions,
     }
-  },
+  },  ['total'], { revalidate: 86400,}
 )
 
 interface RecordsInfo {
@@ -66,7 +66,7 @@ interface RecordsQuery {
   }
 }
 
-export const headerList = cache(
+export const headerList = unstable_cache(
   async (): Promise<NavigationInfo[]> => {
     const options = {
       method: METHOD,
@@ -90,7 +90,7 @@ export const headerList = cache(
       },
     ]
     return list
-  },
+  },  ['header'], { revalidate: 86400,}
 )
 
 interface StorageInfo {
@@ -111,7 +111,7 @@ interface StorageQuery {
   }
 }
 
-export const storageInfo = cache(
+export const storageInfo = unstable_cache(
   async (): Promise<StorageInfo[] | null> => {
     const options = {
       method: METHOD,
@@ -125,7 +125,7 @@ export const storageInfo = cache(
   },
 )
 
-export const recordsList = cache(
+export const recordsList = unstable_cache(
   async (paths?: string): Promise<RecordsInfo[] | null> => {
     if (!paths) return null
     const options = {
@@ -153,7 +153,7 @@ export const recordsList = cache(
         return 0;
       }
     })
-  },
+  }, ['records'], { revalidate: 3600,}
 )
 
 interface MarkdownQuery {
@@ -166,7 +166,7 @@ interface MarkdownQuery {
   }
 }
 
-export const markdownText = cache(
+export const markdownText = unstable_cache(
   async (paths?: string): Promise<string | null> => {
     if (!paths) return null
     const options = {
@@ -178,7 +178,7 @@ export const markdownText = cache(
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as MarkdownQuery
     return data?.repository?.object?.text
-  },
+  }, ['markdown'], { revalidate: 86400,}
 )
 
 export const convertUtfToBase64 = (types: 'utf8' | 'base64', str: string) => {
