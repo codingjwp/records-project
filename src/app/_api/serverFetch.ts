@@ -122,7 +122,7 @@ export const storageInfo = unstable_cache(
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as StorageQuery
     return data?.viewer?.pinnedItems?.nodes
-  },
+  }, ['storage'], { revalidate: 86400,}
 )
 
 export const recordsList = unstable_cache(
