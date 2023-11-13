@@ -13,31 +13,52 @@ const RecordsPage = async ({
 }) => {
   const returnPaths = convertUtfToBase64('utf8', searchParams.paths)
   const files = await recordsList(returnPaths)
-  const pathsSplit = returnPaths.split('/');
+  const pathsSplit = returnPaths.split('/')
   if (!files) notFound()
-  
+
   return (
     <main className={styles.records_wrap}>
       <div className={styles.inner}>
-        {pathsSplit.length > 1 && 
+        {pathsSplit && pathsSplit.length > 1 && (
           <>
             <div className={styles.returnlink_wrap}>
-              <Link href={{
-                pathname: 'records',
-                query: { paths: convertUtfToBase64('base64', pathsSplit.at(0) as string) }}}
+              <Link
+                href={{
+                  pathname: 'records',
+                  query: {
+                    paths: convertUtfToBase64('base64', pathsSplit[0]),
+                  },
+                }}
                 className={styles.returnlink}
-                ><span>•</span></Link></div>
+              >
+                <span>•</span>
+              </Link>
+            </div>
             <div className={styles.returnlink_wrap}>
-              <Link href={{
-              pathname: 'records',
-              query: { paths: convertUtfToBase64('base64', pathsSplit.slice(0, -1).join('/'))}}}
-              className={styles.returnlink}
-              ><span>•••</span></Link></div>
+              <Link
+                href={{
+                  pathname: 'records',
+                  query: {
+                    paths: convertUtfToBase64(
+                      'base64',
+                      pathsSplit.slice(0, -1).join('/'),
+                    ),
+                  },
+                }}
+                className={styles.returnlink}
+              >
+                <span>•••</span>
+              </Link>
+            </div>
           </>
-        }
+        )}
         {files.map((item) => {
           return (
-            <Collapsible key={item.oid} {...item} parent={convertUtfToBase64('base64', item.path)} />
+            <Collapsible
+              key={item.oid}
+              {...item}
+              parent={convertUtfToBase64('base64', item.path)}
+            />
           )
         })}
       </div>

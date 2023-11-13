@@ -37,11 +37,13 @@ export const totalCountInfo = unstable_cache(
         data?.viewer?.contributionsCollection?.contributionCalendar
           ?.totalContributions,
     }
-  },  ['total'], { revalidate: 86400,}
+  },
+  ['total'],
+  { revalidate: 86400 },
 )
 
 interface RecordsInfo {
-  path: string;
+  path: string
   oid: string
   name: string
   nameRaw: string
@@ -90,7 +92,9 @@ export const headerList = unstable_cache(
       },
     ]
     return list
-  },  ['header'], { revalidate: 86400,}
+  },
+  ['header'],
+  { revalidate: 86400 },
 )
 
 interface StorageInfo {
@@ -122,7 +126,9 @@ export const storageInfo = unstable_cache(
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as StorageQuery
     return data?.viewer?.pinnedItems?.nodes
-  }, ['storage'], { revalidate: 86400,}
+  },
+  ['storage'],
+  { revalidate: 86400 },
 )
 
 export const recordsList = unstable_cache(
@@ -144,16 +150,17 @@ export const recordsList = unstable_cache(
     )
     return newData.sort((beforObj, afterObj) => {
       if (beforObj.type === 'tree' && afterObj.type !== 'tree') {
-        return -1;
+        return -1
       }
       if (beforObj.type !== 'tree' && afterObj.type === 'tree') {
-        return 1;
-      }
-      else {
-        return 0;
+        return 1
+      } else {
+        return 0
       }
     })
-  }, ['records'], { revalidate: 3600,}
+  },
+  ['records'],
+  { revalidate: 3600 },
 )
 
 interface MarkdownQuery {
@@ -178,11 +185,13 @@ export const markdownText = unstable_cache(
     if (!response.ok) throw new Error('fetch error response')
     const { data } = (await response.json()) as MarkdownQuery
     return data?.repository?.object?.text
-  }, ['markdown'], { revalidate: 86400,}
+  },
+  ['markdown'],
+  { revalidate: 86400 },
 )
 
 export const convertUtfToBase64 = (types: 'utf8' | 'base64', str: string) => {
   return types === 'utf8'
-  ? Buffer.from(str, 'base64').toString('utf-8')
-  : Buffer.from(str, 'utf-8').toString('base64')
+    ? Buffer.from(str, 'base64').toString('utf-8')
+    : Buffer.from(str, 'utf-8').toString('base64')
 }

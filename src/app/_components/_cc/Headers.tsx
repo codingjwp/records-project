@@ -123,7 +123,11 @@ function ListLink({ isSubOpen, keyId, label, hasLink, childs }: ListLinkProps) {
                   <Link
                     href={{
                       pathname: `${keyId}`,
-                      query: { paths: `${Buffer.from(item.path, 'utf-8').toString('base64')}`},
+                      query: {
+                        paths: `${Buffer.from(item.path, 'utf-8').toString(
+                          'base64',
+                        )}`,
+                      },
                     }}
                   >
                     {item.name}

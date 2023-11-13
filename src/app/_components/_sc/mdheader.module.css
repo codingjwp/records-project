@@ -14,17 +14,27 @@
 
 .title {
   font-weight: 600;
+  max-width: 25rem;
   margin-left: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header a {
   display: inline-flex;
-  height: calc(100% - 2rem);
-  padding: 1rem 2rem;
+  height: 100%;
   align-items: center;
+  padding: 0rem 2rem;
   justify-content: center;
 }
 
 .header a span {
   display: flex;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    max-width: none;
+  }
 }

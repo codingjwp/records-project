@@ -63,7 +63,9 @@ export const queryList = {
     return {
       query: `
         query {
-          repository(owner: "${process.env.GIT_OWNER}" name: "${process.env.GIT_REPOSITORY}") {
+          repository(owner: "${process.env.GIT_OWNER}" name: "${
+            process.env.GIT_REPOSITORY
+          }") {
             object(expression: "main:${paths}") {
               ${type === 'tree' ? treeType : blobType}
             }
